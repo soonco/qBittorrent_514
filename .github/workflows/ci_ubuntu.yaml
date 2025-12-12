@@ -33,13 +33,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-          submodules: false
-          fetch-depth: 1
-
-      - name: Remove submodule config
-        run: |
-          git config --local --remove-section submodule 2>/dev/null || true
-          rm -rf .git/modules 2>/dev/null || true
 
       - name: Install dependencies
         run: |
