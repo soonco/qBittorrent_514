@@ -81,7 +81,7 @@ jobs:
 
       - name: Install libtorrent
         run: |
-          mv ${{ github.workspace }}/libtorrent/${{ matrix.libt_version }} ${{ env.libtorrent_path }}
+          mv ${{ github.workspace }}/deps/libtorrent/${{ matrix.libt_version }} ${{ env.libtorrent_path }}
           cd ${{ env.libtorrent_path }}
           cmake \
             -B build \
