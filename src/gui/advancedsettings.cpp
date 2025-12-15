@@ -349,10 +349,10 @@ void AdvancedSettings::saveAdvancedSettings() const
     pref->recheckTorrentsOnCompletion(m_checkBoxRecheckCompleted.isChecked());
     // 伪造上传倍数
     // Fake upload ratio multiplier
-    pref->setFakeUploadRatio(m_comboBoxFakeUploadRatio.currentData().toInt());
+    session->setFakeUploadRatio(m_comboBoxFakeUploadRatio.currentData().toInt());
     // 伪造上传倍数随机
     // Fake upload ratio randomization
-    pref->setFakeUploadRatioRandomizationEnabled(m_checkBoxFakeUploadRatioRandomization.isChecked());
+    session->setFakeUploadRatioRandomizationEnabled(m_checkBoxFakeUploadRatioRandomization.isChecked());
     // 自定义应用实例名称
     // Customize application instance name
     app()->setInstanceName(m_lineEditAppInstanceName.text());
@@ -1188,11 +1188,11 @@ void AdvancedSettings::loadAdvancedSettings()
     m_comboBoxFakeUploadRatio.addItem(tr("3x"), 3);
     m_comboBoxFakeUploadRatio.addItem(tr("4x"), 4);
     m_comboBoxFakeUploadRatio.addItem(tr("5x"), 5);
-    m_comboBoxFakeUploadRatio.setCurrentIndex(m_comboBoxFakeUploadRatio.findData(pref->getFakeUploadRatio()));
+    m_comboBoxFakeUploadRatio.setCurrentIndex(m_comboBoxFakeUploadRatio.findData(session->fakeUploadRatio()));
     addRow(FAKE_UPLOAD_RATIO, tr("Fake upload ratio multiplier"), &m_comboBoxFakeUploadRatio);
     // 伪造上传倍数随机
     // Fake upload ratio randomization
-    m_checkBoxFakeUploadRatioRandomization.setChecked(pref->isFakeUploadRatioRandomizationEnabled());
+    m_checkBoxFakeUploadRatioRandomization.setChecked(session->isFakeUploadRatioRandomizationEnabled());
     addRow(FAKE_UPLOAD_RATIO_RANDOMIZATION, tr("Fake upload ratio randomization"), &m_checkBoxFakeUploadRatioRandomization);
 }
 

@@ -367,6 +367,10 @@ namespace BitTorrent
         void setMaxConcurrentHTTPAnnounces(int value) override;
         bool isReannounceWhenAddressChangedEnabled() const override;
         void setReannounceWhenAddressChangedEnabled(bool enabled) override;
+        int fakeUploadRatio() const override;
+        void setFakeUploadRatio(int ratio) override;
+        bool isFakeUploadRatioRandomizationEnabled() const override;
+        void setFakeUploadRatioRandomizationEnabled(bool enabled) override;
         void reannounceToAllTrackers() const override;
         int stopTrackerTimeout() const override;
         void setStopTrackerTimeout(int value) override;
@@ -676,6 +680,8 @@ namespace BitTorrent
         CachedSettingValue<int> m_announcePort;
         CachedSettingValue<int> m_maxConcurrentHTTPAnnounces;
         CachedSettingValue<bool> m_isReannounceWhenAddressChangedEnabled;
+        CachedSettingValue<int> m_fakeUploadRatio;
+        CachedSettingValue<bool> m_isFakeUploadRatioRandomizationEnabled;
         CachedSettingValue<int> m_stopTrackerTimeout;
         CachedSettingValue<int> m_maxConnections;
         CachedSettingValue<int> m_maxUploads;

@@ -399,6 +399,10 @@ namespace BitTorrent
         virtual void setMaxConcurrentHTTPAnnounces(int value) = 0;
         virtual bool isReannounceWhenAddressChangedEnabled() const = 0;
         virtual void setReannounceWhenAddressChangedEnabled(bool enabled) = 0;
+        virtual int fakeUploadRatio() const = 0;
+        virtual void setFakeUploadRatio(int ratio) = 0;
+        virtual bool isFakeUploadRatioRandomizationEnabled() const = 0;
+        virtual void setFakeUploadRatioRandomizationEnabled(bool enabled) = 0;
         virtual void reannounceToAllTrackers() const = 0;
         virtual int stopTrackerTimeout() const = 0;
         virtual void setStopTrackerTimeout(int value) = 0;

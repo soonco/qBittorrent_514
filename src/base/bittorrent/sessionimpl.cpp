@@ -448,6 +448,8 @@ SessionImpl::SessionImpl(QObject *parent)
     , m_announcePort(BITTORRENT_SESSION_KEY(u"AnnouncePort"_s), 0)
     , m_maxConcurrentHTTPAnnounces(BITTORRENT_SESSION_KEY(u"MaxConcurrentHTTPAnnounces"_s), 50)
     , m_isReannounceWhenAddressChangedEnabled(BITTORRENT_SESSION_KEY(u"ReannounceWhenAddressChanged"_s), false)
+    , m_fakeUploadRatio(BITTORRENT_SESSION_KEY(u"FakeUploadRatio"_s), 1)
+    , m_isFakeUploadRatioRandomizationEnabled(BITTORRENT_SESSION_KEY(u"FakeUploadRatioRandomization"_s), true)
     , m_stopTrackerTimeout(BITTORRENT_SESSION_KEY(u"StopTrackerTimeout"_s), 2)
     , m_maxConnections(BITTORRENT_SESSION_KEY(u"MaxConnections"_s), 500, lowerLimited(0, -1))
     , m_maxUploads(BITTORRENT_SESSION_KEY(u"MaxUploads"_s), 20, lowerLimited(0, -1))
@@ -2014,6 +2016,10 @@ lt::settings_pack SessionImpl::loadLTSettings() const
 #endif
     // Max concurrent HTTP announces
     settingsPack.set_int(lt::settings_pack::max_concurrent_http_announces, maxConcurrentHTTPAnnounces());
+    // Fake upload ratio
+    settingsPack.set_int(lt::settings_pack::fake_upload_radio, fakeUploadRatio());
+    // Fake upload ratio randomization
+    settingsPack.set_bool(lt::settings_pack::fake_upload_radio_randomization, isFakeUploadRatioRandomizationEnabled());
     // Stop tracker timeout
     settingsPack.set_int(lt::settings_pack::stop_tracker_timeout, stopTrackerTimeout());
     // * Max connections limit
@@ -4933,6 +4939,34 @@ void SessionImpl::setMaxConcurrentHTTPAnnounces(const int value)
 bool SessionImpl::isReannounceWhenAddressChangedEnabled() const
 {
     return m_isReannounceWhenAddressChangedEnabled;
+}
+
+int SessionImpl::fakeUploadRatio() const
+{
+    return m_fakeUploadRatio;
+}
+
+void SessionImpl::setFakeUploadRatio(const int ratio)
+{
+    if (ratio == m_fakeUploadRatio)
+        return;
+
+    m_fakeUploadRatio = ratio;
+    configureDeferred();
+}
+
+bool SessionImpl::isFakeUploadRatioRandomizationEnabled() const
+{
+    return m_isFakeUploadRatioRandomizationEnabled;
+}
+
+void SessionImpl::setFakeUploadRatioRandomizationEnabled(const bool enabled)
+{
+    if (enabled == m_isFakeUploadRatioRandomizationEnabled)
+        return;
+
+    m_isFakeUploadRatioRandomizationEnabled = enabled;
+    configureDeferred();
 }
 
 void SessionImpl::setReannounceWhenAddressChangedEnabled(const bool enabled)
