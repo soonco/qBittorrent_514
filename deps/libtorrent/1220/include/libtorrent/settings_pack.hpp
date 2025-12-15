@@ -864,12 +864,16 @@ namespace aux {
 			ssrf_mitigation,
 
 			// when disabled, any tracker or web seed with an IDNA hostname
-			// (internationalized domain name) is ignored. This is a security
-			// precaution to avoid various unicode encoding attacks that might
-			// happen at the application level.
-			allow_idna,
+		// (internationalized domain name) is ignored. This is a security
+		// precaution to avoid various unicode encoding attacks that might
+		// happen at the application level.
+		allow_idna,
 
-			max_bool_setting_internal
+		// if true, adds randomization to the fake upload ratio to make
+		// traffic patterns less predictable
+		fake_upload_radio_randomization,
+
+		max_bool_setting_internal
 		};
 
 		// hidden
@@ -1803,11 +1807,19 @@ namespace aux {
 			upnp_lease_duration,
 
 			// limits the number of concurrent HTTP tracker announces. Once the
-			// limit is hit, tracker requests are queued and issued when an
-			// outstanding announce completes.
-			max_concurrent_http_announces,
+		// limit is hit, tracker requests are queued and issued when an
+		// outstanding announce completes.
+		max_concurrent_http_announces,
 
-			max_int_setting_internal
+		// ``fake_upload_radio`` controls the ratio of fake upload data to
+		// report to trackers and peers. The value is specified as a percentage.
+		// For example, a value of 1 means report actual upload amount,
+		// 2 means report double the actual upload amount.
+		// This can be combined with ``fake_upload_radio_randomization`` to
+		// add randomness to the reported values.
+		fake_upload_radio,
+
+		max_int_setting_internal
 		};
 
 		// hidden

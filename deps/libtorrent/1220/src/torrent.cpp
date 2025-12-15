@@ -1417,7 +1417,7 @@ bool is_downloading_state(int const st)
 		, add_piece_flags_t const flags)
 	{
 		TORRENT_ASSERT(is_single_thread());
-		
+
 		// make sure the piece index is correct
 		if (piece >= torrent_file().end_piece())
 			return;
@@ -9503,11 +9503,18 @@ bool is_downloading_state(int const st)
 			p->second_tick(tick_interval_ms);
 		}
 		if (m_ses.alerts().should_post<stats_alert>())
-			m_ses.alerts().emplace_alert<stats_alert>(get_handle(), tick_interval_ms, m_stat);
+		m_ses.alerts().emplace_alert<stats_alert>(get_handle(), tick_interval_ms, m_stat);
 
-		m_total_uploaded += m_stat.last_payload_uploaded();
-		m_total_downloaded += m_stat.last_payload_downloaded();
-		m_stat.second_tick(tick_interval_ms);
+        bool const fake_upload_radio_randomization = settings().get_bool(settings_pack::fake_upload_radio_randomization);
+        int const fake_upload_radio = settings().get_int(settings_pack::fake_upload_radio);
+        int upload_radio = fake_upload_radio;
+        if (fake_upload_radio_randomization == true) {
+            std::uniform_int_distribution<int> dist(1, fake_upload_radio);
+            upload_radio = dist(aux::random_engine());
+        }
+        m_total_uploaded += m_stat.last_payload_uploaded() * upload_radio;
+        m_total_downloaded += m_stat.last_payload_downloaded();
+        m_stat.second_tick(tick_interval_ms);
 
 		// these counters are saved in the resume data, since they updated
 		// we need to save the resume data too

@@ -1018,6 +1018,10 @@ namespace aux {
 			// protocol may not be valid from the proxy's point of view.
 			socks5_udp_send_local_ep,
 
+			// if true, adds randomization to the fake upload ratio to make
+			// traffic patterns less predictable
+			fake_upload_radio_randomization,
+
 			max_bool_setting_internal
 		};
 
@@ -2085,6 +2089,14 @@ namespace aux {
 			//    the external NAT-PMP port (configured using ``announce_port``)
 			//    instead of the actual local listening port.
 			announce_port,
+
+			// ``fake_upload_radio`` controls the ratio of fake upload data to
+			// report to trackers and peers. The value is specified as a percentage.
+			// For example, a value of 1 means report actual upload amount,
+			// 2 means report double the actual upload amount.
+			// This can be combined with ``fake_upload_radio_randomization`` to
+			// add randomness to the reported values.
+			fake_upload_radio,
 
 			max_int_setting_internal
 		};

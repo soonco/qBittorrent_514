@@ -211,9 +211,10 @@ constexpr int CLOSE_FILE_INTERVAL = 0;
 		SET(dht_prefer_verified_node_ids, true, &session_impl::update_dht_settings),
 		SET(piece_extent_affinity, false, nullptr),
 		SET(validate_https_trackers, true, &session_impl::update_validate_https),
-		SET(ssrf_mitigation, true, nullptr),
-		SET(allow_idna, false, nullptr),
-	}});
+        SET(ssrf_mitigation, true, nullptr),
+        SET(allow_idna, false, nullptr),
+        SET(fake_upload_radio_randomization, true, nullptr),
+}});
 
 	aux::array<int_setting_entry_t, settings_pack::num_int_settings> const int_settings
 	({{
@@ -353,9 +354,10 @@ constexpr int CLOSE_FILE_INTERVAL = 0;
 		SET(resolver_cache_timeout, 1200, &session_impl::update_resolver_cache_timeout),
 		SET(send_not_sent_low_watermark, 16384, nullptr),
 		SET(rate_choker_initial_threshold, 1024, nullptr),
-		SET(upnp_lease_duration, 3600, nullptr),
-		SET(max_concurrent_http_announces, 50, nullptr),
-	}});
+        SET(upnp_lease_duration, 3600, nullptr),
+        SET(max_concurrent_http_announces, 50, nullptr),
+        SET(fake_upload_radio, 1, nullptr),
+}});
 
 #undef SET
 #undef DEPRECATED_SET

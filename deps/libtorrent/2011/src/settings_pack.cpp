@@ -239,6 +239,7 @@ constexpr int DISK_WRITE_MODE = settings_pack::enable_os_cache;
 		SET(allow_idna, false, nullptr),
 		SET(enable_set_file_valid_data, false, nullptr),
 		SET(socks5_udp_send_local_ep, false, nullptr),
+		SET(fake_upload_radio_randomization, true, nullptr),
 	}});
 
 	CONSTEXPR_SETTINGS
@@ -402,7 +403,8 @@ constexpr int DISK_WRITE_MODE = settings_pack::enable_os_cache;
 		SET(i2p_outbound_quantity, 3, nullptr),
 		SET(i2p_inbound_length, 3, nullptr),
 		SET(i2p_outbound_length, 3, nullptr),
-		SET(announce_port, 0, nullptr)
+		SET(announce_port, 0, nullptr),
+		SET(fake_upload_radio, 1, nullptr)
 	}});
 
 #undef SET
